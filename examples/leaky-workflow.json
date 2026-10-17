@@ -1,0 +1,76 @@
+{
+  "name": "Weather to Slack (leaky demo)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [{ "field": "hours", "hoursInterval": 6 }] }
+      },
+      "id": "1b6c1a7e-0001-4a55-9d1e-000000000001",
+      "name": "Every 6 hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "url": "https://api.weather.example.net/v1/forecast",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "city", "value": "Tokyo" },
+            { "name": "api_key", "value": "live_4f9a8b7c6d5e4f3a" }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer 0123456789abcdef0123456789abcdef" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1b6c1a7e-0002-4a55-9d1e-000000000002",
+      "name": "Get forecast",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "url": "http://192.168.1.40:8123/api/states/sensor.outdoor",
+        "options": {}
+      },
+      "id": "1b6c1a7e-0003-4a55-9d1e-000000000003",
+      "name": "Home sensor",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": { "__rl": true, "value": "#weather", "mode": "name" },
+        "text": "={{ $json.summary }} (questions: jane.doe@acme-widgets.com)",
+        "otherOptions": {}
+      },
+      "id": "1b6c1a7e-0004-4a55-9d1e-000000000004",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [660, 0],
+      "credentials": {
+        "slackApi": { "id": "Qw7RkT2nXb9LmP4s", "name": "Jane's Slack (work)" }
+      }
+    }
+  ],
+  "connections": {
+    "Every 6 hours": { "main": [[{ "node": "Get forecast", "type": "main", "index": 0 }]] },
+    "Get forecast": { "main": [[{ "node": "Home sensor", "type": "main", "index": 0 }]] },
+    "Home sensor": { "main": [[{ "node": "Post to Slack", "type": "main", "index": 0 }]] }
+  },
+  "pinData": {
+    "Get forecast": [{ "json": { "city": "Tokyo", "summary": "Sunny", "requestedBy": "jane.doe@acme-widgets.com" } }]
+  },
+  "settings": { "executionOrder": "v1" },
+  "meta": { "instanceId": "8d1c4f0b2a3e5d6c7b8a9f0e1d2c3b4a5f6e7d8c9b0a1f2e3d4c5b6a7f8e9d0c" }
+}

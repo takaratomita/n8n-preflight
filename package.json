@@ -1,0 +1,31 @@
+{
+  "name": "n8n-preflight",
+  "version": "0.1.0",
+  "description": "Scan n8n workflow JSON for leaked API keys, credential IDs, pinned data and private URLs before you share or sell it.",
+  "type": "module",
+  "bin": {
+    "n8n-preflight": "bin/n8n-preflight.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "n8n",
+    "workflow",
+    "secrets",
+    "secret-scanner",
+    "lint",
+    "template",
+    "automation"
+  ],
+  "license": "MIT"
+}
