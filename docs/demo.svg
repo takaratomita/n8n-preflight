@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="977" height="397" viewBox="0 0 977 397" role="img" aria-labelledby="t">
+<title id="t">n8n-preflight scanning an example n8n workflow: 2 errors and 5 warnings</title>
+<style>
+text{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:13px;fill:#d4d4d4;white-space:pre}
+.cmd{fill:#9cdcfe;font-weight:bold}.file{fill:#ffffff;font-weight:bold}.err{fill:#f48771;font-weight:bold}.warn{fill:#e5c07b;font-weight:bold}.dim{fill:#8b949e}.sum{fill:#ffffff;font-weight:bold}
+</style>
+<rect width="977" height="397" rx="8" fill="#1e1e1e"/>
+<text x="18" y="32" class="cmd" xml:space="preserve">$ npx github:takaratomita/n8n-preflight leaky-workflow.json</text>
+<text x="18" y="51" class="file" xml:space="preserve"></text>
+<text x="18" y="70" class="file" xml:space="preserve">leaky-workflow.json</text>
+<text x="18" y="89" xml:space="preserve">  <tspan class="err">error</tspan>    secret-field          &quot;api_key&quot; has a literal value; use an n8n credential or an expression instead</text>
+<text x="18" y="108" class="dim" xml:space="preserve">           at node &quot;Get forecast&quot; → nodes[1].parameters.queryParameters.parameters[1].value  [(21 chars)]</text>
+<text x="18" y="127" xml:space="preserve">  <tspan class="err">error</tspan>    hardcoded-secret      Possible Bearer token</text>
+<text x="18" y="146" class="dim" xml:space="preserve">           at node &quot;Get forecast&quot; → nodes[1].parameters.headerParameters.parameters[0].value  [Bearer 0123… (32 chars)]</text>
+<text x="18" y="165" xml:space="preserve">  <tspan class="warn">warning</tspan>  credential-reference  Credential &quot;slackApi&quot; references an ID from your instance</text>
+<text x="18" y="184" class="dim" xml:space="preserve">           at node &quot;Post to Slack&quot; → nodes[3].credentials.slackApi</text>
+<text x="18" y="203" xml:space="preserve">  <tspan class="warn">warning</tspan>  internal-host         URL points to an internal host (192.168.1.40)</text>
+<text x="18" y="222" class="dim" xml:space="preserve">           at node &quot;Home sensor&quot; → nodes[2].parameters.url</text>
+<text x="18" y="241" xml:space="preserve">  <tspan class="warn">warning</tspan>  email-address         Real-looking email address (jane… (25 chars))</text>
+<text x="18" y="260" class="dim" xml:space="preserve">           at node &quot;Post to Slack&quot; → nodes[3].parameters.text</text>
+<text x="18" y="279" xml:space="preserve">  <tspan class="warn">warning</tspan>  pinned-data           Pinned data is exported with the workflow; remove it before sharing</text>
+<text x="18" y="298" class="dim" xml:space="preserve">           at pinData</text>
+<text x="18" y="317" xml:space="preserve">  <tspan class="warn">warning</tspan>  instance-id           meta.instanceId identifies your n8n instance</text>
+<text x="18" y="336" class="dim" xml:space="preserve">           at meta.instanceId</text>
+<text x="18" y="355" class="file" xml:space="preserve"></text>
+<text x="18" y="374" class="sum" xml:space="preserve">2 errors, 5 warnings (1 file scanned).</text>
+</svg>

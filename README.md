@@ -2,13 +2,25 @@
 
 **Scan n8n workflow JSON for leaked API keys, credential IDs, pinned data and private URLs — before you share, publish or sell it.**
 
+Try it in about 10 seconds (Node.js 18+, nothing to install, no workflow of your own needed):
+
+```bash
+curl -fsSLO https://raw.githubusercontent.com/takaratomita/n8n-preflight/main/examples/leaky-workflow.json
+npx github:takaratomita/n8n-preflight leaky-workflow.json
+```
+
+![n8n-preflight scanning a leaky example workflow: 2 errors, 5 warnings](docs/demo.svg)
+
 Exported n8n workflows are easy to share and easy to leak from. A "quick test" HTTP Request node with a pasted `Authorization` header, a pinned run full of customer emails, the `instanceId` of your server, a webhook URL that points at your own instance — all of it ends up in the JSON you paste into a forum, a GitHub repo or a template marketplace.
 
 `n8n-preflight` is a small, zero-dependency CLI that reads that JSON and tells you what to remove. It can also write a cleaned copy.
 
+<details>
+<summary>The same output as text</summary>
+
 ```text
-$ n8n-preflight examples/leaky-workflow.json
-examples/leaky-workflow.json
+$ npx github:takaratomita/n8n-preflight leaky-workflow.json
+leaky-workflow.json
   error    secret-field          "api_key" has a literal value; use an n8n credential or an expression instead
            at node "Get forecast" → nodes[1].parameters.queryParameters.parameters[1].value  [(21 chars)]
   error    hardcoded-secret      Possible Bearer token
@@ -26,6 +38,8 @@ examples/leaky-workflow.json
 
 2 errors, 5 warnings (1 file scanned).
 ```
+
+</details>
 
 Secrets are never printed in full. Recognized tokens show their first 4 characters (usually the public prefix such as `sk-p` or `Bearer`) and the length; values of secret-named fields show only the length. The output itself is safe to paste into an issue or a CI log.
 
@@ -121,7 +135,7 @@ This is a pattern scanner, not a guarantee. It will not find a secret that has n
 npm test   # node --test, no dependencies
 ```
 
-## Free workflows
+## Want more than a linter?
 
 Free workflows that already pass `n8n-preflight --template --strict`: https://github.com/takaratomita/n8n-free-workflows
 
